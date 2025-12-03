@@ -1,4 +1,50 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Удаляем лоадер через 2 секунды
+    setTimeout(function() {
+        const loader = document.querySelector('.site-loader');
+        const container = document.querySelector('.terminal-container');
+        
+        if (loader && container) {
+            // Плавно скрываем лоадер
+            loader.style.opacity = '0';
+            loader.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(function() {
+                // Полностью убираем лоадер
+                loader.style.display = 'none';
+                
+                // Показываем основной контейнер
+                container.style.display = 'block';
+                
+                // Плавно проявляем контент
+                setTimeout(function() {
+                    container.style.opacity = '1';
+                    container.style.transition = 'opacity 0.5s ease';
+                    
+                    // Инициализируем сайт
+                    initSite();
+                }, 10);
+            }, 500); // Ждем завершения анимации opacity
+        } else {
+            // Если что-то не найдено, все равно инициализируем
+            initSite();
+        }
+    }, 2000);
+    
+    // Функция инициализации сайта
+    function initSite() {
+        // Инициализируем все компоненты
+        initTypingEffect();
+        initNavigation();
+        initModal();
+        initServiceDetails();
+        
+        // Активируем первый экран
+        setTimeout(function() {
+            switchScreen('screen-1');
+        }, 100);
+    }
+    
     // Элементы DOM
     const screens = document.querySelectorAll('.screen');
     const buttons = document.querySelectorAll('.cyber-btn[data-target]');
@@ -8,44 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById('consultation-modal');
     const modalClose = document.querySelector('.modal-close');
     const serviceDetailsBtns = document.querySelectorAll('.service-details-btn');
-    
-    // Удаляем лоадер через 2 секунды
-    setTimeout(removeLoader, 2000);
-    
-    // Функция удаления лоадера
-    function removeLoader() {
-        const loader = document.querySelector('.site-loader');
-        if (loader) {
-            loader.style.opacity = '0';
-            loader.style.transition = 'opacity 0.5s ease';
-            
-            setTimeout(() => {
-                loader.style.display = 'none';
-                // Показываем основной контент
-                document.querySelector('.terminal-container').style.display = 'block';
-                document.querySelector('.terminal-container').style.opacity = '0';
-                document.querySelector('.terminal-container').style.transition = 'opacity 0.5s ease';
-                
-                setTimeout(() => {
-                    document.querySelector('.terminal-container').style.opacity = '1';
-                    // Инициализируем всё после показа контента
-                    initEverything();
-                }, 10);
-            }, 500);
-        } else {
-            // Если лоадера нет, сразу инициализируем
-            initEverything();
-        }
-    }
-    
-    // Функция инициализации всего
-    function initEverything() {
-        initTypingEffect();
-        initNavigation();
-        initModal();
-        initServiceDetails();
-        switchScreen('screen-1');
-    }
     
     // Тексты для печатающего эффекта
     const typingTexts = [
