@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Элементы DOM
-    const siteLoader = document.getElementById('site-loader');
-    const terminalContainer = document.getElementById('terminal-container');
     const screens = document.querySelectorAll('.screen');
     const buttons = document.querySelectorAll('.cyber-btn[data-target]');
     const backButtons = document.querySelectorAll('.back-btn');
@@ -11,6 +9,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalClose = document.querySelector('.modal-close');
     const serviceDetailsBtns = document.querySelectorAll('.service-details-btn');
     
+    // Простая функция удаления лоадера
+    function removeLoader() {
+        const loader = document.querySelector('.site-loader');
+        if (loader) {
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.remove();
+            }, 500);
+        }
+    }
+    
+    // Удаляем лоадер через 2 секунды
+    setTimeout(removeLoader, 2000);
+    
     // Тексты для печатающего эффекта
     const typingTexts = [
         "scanning network...",
@@ -19,29 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
         "welcome to RESCUERS terminal",
         "type 'help' for commands"
     ];
-    
-    // Через 2 секунды скрываем лоадер и показываем основной контейнер
-    setTimeout(() => {
-        if (siteLoader) {
-            siteLoader.style.opacity = '0';
-            siteLoader.style.transition = 'opacity 0.5s ease';
-        }
-        
-        setTimeout(() => {
-            if (siteLoader) {
-                siteLoader.style.display = 'none';
-            }
-            if (terminalContainer) {
-                terminalContainer.classList.remove('hidden');
-                // Инициализация основного функционала
-                initTypingEffect();
-                initNavigation();
-                initModal();
-                initServiceDetails();
-                switchScreen('screen-1');
-            }
-        }, 500);
-    }, 2000);
     
     // Функция печатающего текста в футере
     function initTypingEffect() {
@@ -164,6 +153,15 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+    
+    // Инициализация всего
+    setTimeout(() => {
+        initTypingEffect();
+        initNavigation();
+        initModal();
+        initServiceDetails();
+        switchScreen('screen-1');
+    }, 2100); // Чуть позже удаления лоадера
     
     // Дополнительные обработчики
     document.querySelectorAll('[data-action="examples"]').forEach(btn => {
