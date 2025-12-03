@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const buttons = document.querySelectorAll('.cyber-btn[data-target]');
     const backButtons = document.querySelectorAll('.back-btn');
     const indicatorDots = document.querySelectorAll('.indicator-dot');
-    const consultationBtn = document.getElementById('consultation-btn');
-    const calculateBtn = document.getElementById('calculate-btn');
+    const helpBtn = document.getElementById('help-btn');
     const modal = document.getElementById('consultation-modal');
     const modalClose = document.querySelector('.modal-close');
+    const serviceDetailsBtns = document.querySelectorAll('.service-details-btn');
     
     // Тексты для печатающего эффекта
     const typingTexts = [
@@ -19,13 +19,53 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
     
     // Инициализация
-    initTypingEffect();
-    initNavigation();
-    initModal();
+    setTimeout(initSite, 100); // Небольшая задержка для показа loader
+    
+    function initSite() {
+        // Показываем loader на 2 секунды
+        showLoader();
+        
+        // После loader инициализируем остальное
+        setTimeout(() => {
+            hideLoader();
+            initTypingEffect();
+            initNavigation();
+            initModal();
+            initServiceDetails();
+        }, 2000);
+    }
+    
+    // Функция показа loader
+    function showLoader() {
+        const loaderHTML = `
+            <div class="site-loader">
+                <div class="loader-text">ИНИЦИАЛИЗАЦИЯ СИСТЕМЫ БЕЗОПАСНОСТИ...</div>
+                <div class="loader-bar">
+                    <div class="loader-progress"></div>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('afterbegin', loaderHTML);
+    }
+    
+    // Функция скрытия loader
+    function hideLoader() {
+        const loader = document.querySelector('.site-loader');
+        if (loader) {
+            loader.style.opacity = '0';
+            loader.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                loader.remove();
+                document.body.style.opacity = '1';
+            }, 500);
+        }
+    }
     
     // Функция печатающего текста в футере
     function initTypingEffect() {
         const typingElement = document.getElementById('typing-text');
+        if (!typingElement) return;
+        
         let textIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
@@ -82,22 +122,15 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        // Кнопка консультации
-        if (consultationBtn) {
-            consultationBtn.addEventListener('click', function() {
+        // Кнопка запроса помощи
+        if (helpBtn) {
+            helpBtn.addEventListener('click', function() {
                 modal.classList.add('active');
-            });
-        }
-        
-        // Кнопка расчета
-        if (calculateBtn) {
-            calculateBtn.addEventListener('click', function() {
-                alert('Для расчета стоимости вашей ситуации свяжитесь с нами в Telegram: @usertrawka\nУкажите код "CALC-WEB" для быстрого ответа.');
             });
         }
     }
     
-    // Переключение экранов
+    // Переключение экранов с анимацией
     function switchScreen(screenId) {
         // Находим целевой экран
         const targetScreen = document.getElementById(screenId);
@@ -106,12 +139,22 @@ document.addEventListener('DOMContentLoaded', function() {
         // Находим активный экран
         const activeScreen = document.querySelector('.screen.active');
         
-        // Анимация перехода
         if (activeScreen) {
-            activeScreen.classList.remove('active');
+            // Добавляем класс для анимации выхода
+            activeScreen.classList.add('fade-out');
             
             setTimeout(() => {
-                targetScreen.classList.add('active');
+                // Убираем активный класс и класс анимации
+                activeScreen.classList.remove('active', 'fade-out');
+                
+                // Добавляем активный класс целевому экрану
+                targetScreen.classList.add('active', 'fade-in');
+                
+                // Убираем класс анимации после завершения
+                setTimeout(() => {
+                    targetScreen.classList.remove('fade-in');
+                }, 300);
+                
                 updateIndicator(screenId);
             }, 300);
         } else {
@@ -141,22 +184,44 @@ document.addEventListener('DOMContentLoaded', function() {
     // Инициализация модального окна
     function initModal() {
         // Закрытие модального окна
-        modalClose.addEventListener('click', function() {
-            modal.classList.remove('active');
-        });
+        if (modalClose) {
+            modalClose.addEventListener('click', function() {
+                modal.classList.remove('active');
+            });
+        }
         
         // Закрытие по клику вне окна
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-            }
-        });
+        if (modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        }
         
         // Закрытие по Escape
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modal.classList.contains('active')) {
+            if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
                 modal.classList.remove('active');
             }
+        });
+    }
+    
+    // Инициализация кнопок подробностей услуг
+    function initServiceDetails() {
+        serviceDetailsBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const serviceType = this.getAttribute('data-service');
+                let message = '';
+                
+                if (serviceType === 'basic') {
+                    message = 'БАЗОВЫЙ АНАЛИЗ ($1-3):\n\n• Проверка цифрового следа\n• Базовый OSINT-анализ\n• Отчет в течение 1 часа\n• Цена зависит от анонимности жертвы\n\nДля заказа: @usertrawka';
+                } else if (serviceType === 'full') {
+                    message = 'ПОЛНОЕ РАССЛЕДОВАНИЕ ($6):\n\n• Глубокий OSINT-анализ\n• Отчет активности аккаунта\n• Детальный отчет + рекомендации\n• Обучение анонимности\n• Вне зависимости от анонимности\n\nДля заказа: @usertrawka';
+                }
+                
+                alert(message);
+            });
         });
     }
     
@@ -173,15 +238,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Добавляем эффект наведения на все кнопки услуг
-    document.querySelectorAll('.service-card .cyber-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const serviceName = this.closest('.service-card').querySelector('h3').textContent;
-            alert(`Подробная информация об услуге "${serviceName}" отправлена в Telegram: @priceusertrawka`);
-        });
-    });
-    
-    // Эффект мерцания для статуса (дополнительная анимация)
+    // Эффект мерцания для статуса
     setInterval(() => {
         const statusIndicator = document.querySelector('.status-indicator.active');
         if (statusIndicator) {
@@ -190,5 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 2000);
     
     // Инициализируем первый экран как активный
-    switchScreen('screen-1');
+    setTimeout(() => {
+        switchScreen('screen-1');
+    }, 2500);
 });
