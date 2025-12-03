@@ -9,19 +9,43 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalClose = document.querySelector('.modal-close');
     const serviceDetailsBtns = document.querySelectorAll('.service-details-btn');
     
-    // Простая функция удаления лоадера
+    // Удаляем лоадер через 2 секунды
+    setTimeout(removeLoader, 2000);
+    
+    // Функция удаления лоадера
     function removeLoader() {
         const loader = document.querySelector('.site-loader');
         if (loader) {
             loader.style.opacity = '0';
+            loader.style.transition = 'opacity 0.5s ease';
+            
             setTimeout(() => {
-                loader.remove();
+                loader.style.display = 'none';
+                // Показываем основной контент
+                document.querySelector('.terminal-container').style.display = 'block';
+                document.querySelector('.terminal-container').style.opacity = '0';
+                document.querySelector('.terminal-container').style.transition = 'opacity 0.5s ease';
+                
+                setTimeout(() => {
+                    document.querySelector('.terminal-container').style.opacity = '1';
+                    // Инициализируем всё после показа контента
+                    initEverything();
+                }, 10);
             }, 500);
+        } else {
+            // Если лоадера нет, сразу инициализируем
+            initEverything();
         }
     }
     
-    // Удаляем лоадер через 2 секунды
-    setTimeout(removeLoader, 2000);
+    // Функция инициализации всего
+    function initEverything() {
+        initTypingEffect();
+        initNavigation();
+        initModal();
+        initServiceDetails();
+        switchScreen('screen-1');
+    }
     
     // Тексты для печатающего эффекта
     const typingTexts = [
@@ -153,15 +177,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-    
-    // Инициализация всего
-    setTimeout(() => {
-        initTypingEffect();
-        initNavigation();
-        initModal();
-        initServiceDetails();
-        switchScreen('screen-1');
-    }, 2100); // Чуть позже удаления лоадера
     
     // Дополнительные обработчики
     document.querySelectorAll('[data-action="examples"]').forEach(btn => {
