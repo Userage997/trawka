@@ -15,23 +15,14 @@ body {
     background-image: 
         radial-gradient(circle at 10% 20%, rgba(0, 40, 0, 0.1) 0%, transparent 20%),
         radial-gradient(circle at 90% 80%, rgba(0, 30, 60, 0.1) 0%, transparent 20%);
-    opacity: 0;
-    animation: fadeIn 1s forwards;
 }
 
-@keyframes fadeIn {
-    to { opacity: 1; }
+/* Класс для скрытия элементов */
+.hidden {
+    display: none !important;
 }
 
-/* Основной контейнер */
-.terminal-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    position: relative;
-}
-
-/* Анимация загрузки сайта */
+/* Лоадер */
 .site-loader {
     position: fixed;
     top: 0;
@@ -75,6 +66,14 @@ body {
     60% { width: 75%; }
     80% { width: 90%; }
     100% { width: 100%; }
+}
+
+/* Основной контейнер */
+.terminal-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
 }
 
 /* Стили для экранов */
