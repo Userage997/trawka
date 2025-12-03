@@ -17,59 +17,12 @@ body {
         radial-gradient(circle at 90% 80%, rgba(0, 30, 60, 0.1) 0%, transparent 20%);
 }
 
-/* ========== ЛОАДЕР (ОБЯЗАТЕЛЬНО!) ========== */
-.site-loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #000000;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 99999;
-}
-
-.loader-text {
-    color: #00ff00;
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    font-family: 'Courier New', monospace;
-}
-
-.loader-bar {
-    width: 300px;
-    height: 3px;
-    background: #333;
-    border-radius: 3px;
-    overflow: hidden;
-}
-
-.loader-progress {
-    height: 100%;
-    background: #00ff00;
-    width: 0%;
-    animation: loading 2s ease-in-out forwards;
-}
-
-@keyframes loading {
-    0% { width: 0%; }
-    20% { width: 25%; }
-    40% { width: 50%; }
-    60% { width: 75%; }
-    80% { width: 90%; }
-    100% { width: 100%; }
-}
-
 /* Основной контейнер */
 .terminal-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
     position: relative;
-    display: block;
 }
 
 /* Стили для экранов */
@@ -804,23 +757,4 @@ body {
     .service-header h3 {
         margin-right: 0;
     }
-}
-
-/* Анимация затухания для переключения экранов */
-@keyframes screenFadeOut {
-    from { opacity: 1; transform: translateY(0); }
-    to { opacity: 0; transform: translateY(-20px); }
-}
-
-@keyframes screenFadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.screen.fade-out {
-    animation: screenFadeOut 0.3s forwards;
-}
-
-.screen.fade-in {
-    animation: screenFadeIn 0.3s forwards;
 }
