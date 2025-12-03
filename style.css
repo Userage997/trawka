@@ -15,6 +15,12 @@ body {
     background-image: 
         radial-gradient(circle at 10% 20%, rgba(0, 40, 0, 0.1) 0%, transparent 20%),
         radial-gradient(circle at 90% 80%, rgba(0, 30, 60, 0.1) 0%, transparent 20%);
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
 }
 
 /* Основной контейнер */
@@ -23,6 +29,52 @@ body {
     margin: 0 auto;
     padding: 20px;
     position: relative;
+}
+
+/* Анимация загрузки сайта */
+.site-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.loader-text {
+    color: #00ff00;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    font-family: 'Courier New', monospace;
+}
+
+.loader-bar {
+    width: 300px;
+    height: 3px;
+    background: #333;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.loader-progress {
+    height: 100%;
+    background: #00ff00;
+    width: 0%;
+    animation: loading 2s ease-in-out forwards;
+}
+
+@keyframes loading {
+    0% { width: 0%; }
+    20% { width: 25%; }
+    40% { width: 50%; }
+    60% { width: 75%; }
+    80% { width: 90%; }
+    100% { width: 100%; }
 }
 
 /* Стили для экранов */
@@ -132,13 +184,31 @@ body {
     margin-right: 10px;
 }
 
-/* ASCII арт */
+/* Увеличенный ASCII арт */
 .ascii-art {
     text-align: center;
-    margin: 30px 0;
+    margin: 30px 0 50px 0;
     color: #00ffff;
-    font-size: 0.7rem;
-    opacity: 0.8;
+    opacity: 0.9;
+    animation: asciiGlow 3s infinite alternate;
+}
+
+.ascii-large {
+    font-size: 0.85rem;
+    line-height: 1.3;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+@keyframes asciiGlow {
+    0% { 
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        transform: scale(1);
+    }
+    100% { 
+        text-shadow: 0 0 20px rgba(0, 255, 255, 0.8), 
+                     0 0 30px rgba(0, 255, 255, 0.6);
+        transform: scale(1.02);
+    }
 }
 
 /* Сетка меню */
@@ -347,6 +417,10 @@ body {
     flex-wrap: wrap;
 }
 
+.center-buttons {
+    justify-content: center;
+}
+
 /* Профиль эксперта */
 .expert-profile {
     max-width: 800px;
@@ -406,6 +480,7 @@ body {
     display: flex;
     align-items: center;
     gap: 15px;
+    justify-content: center;
 }
 
 .warning-icon {
@@ -413,7 +488,7 @@ body {
     font-size: 1.5rem;
 }
 
-/* Сетка услуг */
+/* Центрированная сетка услуг (2 карточки) */
 .services-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -421,9 +496,11 @@ body {
     margin: 40px 0;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 768px) {
     .services-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 800px;
+        margin: 40px auto;
     }
 }
 
@@ -433,6 +510,9 @@ body {
     border-radius: 5px;
     padding: 25px;
     transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .service-card:hover {
@@ -445,7 +525,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     padding-bottom: 15px;
     border-bottom: 1px solid #333;
 }
@@ -453,22 +533,33 @@ body {
 .service-header h3 {
     color: #00ffff;
     font-size: 1.1rem;
+    margin-right: 15px;
 }
 
 .service-price {
     color: #ff9900;
     font-weight: bold;
     font-size: 1.2rem;
+    white-space: nowrap;
+}
+
+.service-desc {
+    color: #ff9900;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    text-align: center;
+    font-style: italic;
 }
 
 .service-features {
     list-style: none;
     margin-bottom: 25px;
+    flex-grow: 1;
 }
 
 .service-features li {
     margin-bottom: 10px;
-    padding-left: 20px;
+    padding-left: 25px;
     position: relative;
     color: #cccccc;
 }
@@ -478,6 +569,7 @@ body {
     color: #00ff00;
     position: absolute;
     left: 0;
+    font-weight: bold;
 }
 
 /* Уведомление безопасности */
@@ -686,6 +778,10 @@ body {
         font-size: 1.8rem;
     }
     
+    .ascii-large {
+        font-size: 0.6rem;
+    }
+    
     .terminal-header {
         flex-direction: column;
         gap: 15px;
@@ -700,4 +796,33 @@ body {
     .info-container {
         padding: 15px;
     }
+    
+    .service-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .service-header h3 {
+        margin-right: 0;
+    }
+}
+
+/* Анимация затухания для переключения экранов */
+@keyframes screenFadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-20px); }
+}
+
+@keyframes screenFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.screen.fade-out {
+    animation: screenFadeOut 0.3s forwards;
+}
+
+.screen.fade-in {
+    animation: screenFadeIn 0.3s forwards;
 }
