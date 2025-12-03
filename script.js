@@ -1,36 +1,46 @@
-// Простая и надежная функция удаления лоадера
-function hideLoader() {
-    const loader = document.getElementById('site-loader');
-    if (loader) {
-        loader.style.opacity = '0';
-        loader.style.transition = 'opacity 0.5s ease';
+// ГАРАНТИРОВАННО УБИРАЕМ ЛОАДЕР И ПОКАЗЫВАЕМ КОНТЕНТ
+window.addEventListener('load', function() {
+    // Ждем 2 секунды для анимации загрузки
+    setTimeout(function() {
+        const loader = document.getElementById('site-loader');
+        const container = document.querySelector('.terminal-container');
         
-        // Через 0.5 секунды (после анимации) скрываем полностью
-        setTimeout(function() {
-            loader.style.display = 'none';
+        // 1. Скрываем лоадер
+        if (loader) {
+            loader.style.opacity = '0';
+            loader.style.transition = 'opacity 0.5s ease';
             
-            // Показываем первый экран
-            document.getElementById('screen-1').classList.add('active');
-            
-            // Инициализируем все функции
-            initTypingEffect();
-            initNavigation();
-            initModal();
-            initServiceDetails();
-            initExtraHandlers();
-        }, 500);
-    } else {
-        // Если лоадера нет, сразу инициализируем
-        initSite();
-    }
-}
+            // 2. Через 0.5 сек убираем полностью
+            setTimeout(function() {
+                loader.style.display = 'none';
+                
+                // 3. ПОКАЗЫВАЕМ КОНТЕНТ!
+                if (container) {
+                    container.style.display = 'block';
+                    
+                    // 4. Показываем первый экран
+                    const firstScreen = document.getElementById('screen-1');
+                    if (firstScreen) {
+                        firstScreen.classList.add('active');
+                    }
+                    
+                    // 5. Инициализируем все функции
+                    initEverything();
+                }
+            }, 500); // Ждем завершения fade out
+        } else {
+            // Если лоадера нет, сразу показываем контент
+            if (container) {
+                container.style.display = 'block';
+                document.getElementById('screen-1').classList.add('active');
+                initEverything();
+            }
+        }
+    }, 2000); // Ждем 2 секунды перед началом
+});
 
-// Убираем лоадер через 2 секунды
-setTimeout(hideLoader, 2000);
-
-// Функция инициализации сайта (если лоадера нет)
-function initSite() {
-    document.getElementById('screen-1').classList.add('active');
+// Инициализация всего сайта
+function initEverything() {
     initTypingEffect();
     initNavigation();
     initModal();
@@ -196,14 +206,17 @@ function initExtraHandlers() {
     }, 2000);
 }
 
-// Инициализация при полной загрузке страницы
-window.addEventListener('load', function() {
-    // Если лоадер все еще виден через 3 секунды - принудительно скрываем
+// Если страница уже загружена (кеш)
+if (document.readyState === 'complete') {
     setTimeout(function() {
         const loader = document.getElementById('site-loader');
-        if (loader && loader.style.display !== 'none') {
-            loader.style.display = 'none';
-            initSite();
+        if (loader) loader.style.display = 'none';
+        
+        const container = document.querySelector('.terminal-container');
+        if (container) {
+            container.style.display = 'block';
+            document.getElementById('screen-1').classList.add('active');
+            initEverything();
         }
-    }, 3000);
-});
+    }, 100);
+}
