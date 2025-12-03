@@ -17,11 +17,6 @@ body {
         radial-gradient(circle at 90% 80%, rgba(0, 30, 60, 0.1) 0%, transparent 20%);
 }
 
-/* Класс для скрытия элементов */
-.hidden {
-    display: none !important;
-}
-
 /* Лоадер */
 .site-loader {
     position: fixed;
@@ -300,6 +295,7 @@ body {
 
 .btn-external {
     color: #00ffff;
+    font-size: 1rem;
 }
 
 /* Футер терминала */
@@ -375,6 +371,21 @@ body {
     color: #ffffff;
 }
 
+/* Заголовок специалиста */
+.expert-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #00ff00;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.title-icon {
+    color: #00ffff;
+    font-size: 1.2rem;
+}
+
 /* Списки */
 .cyber-list {
     list-style: none;
@@ -427,21 +438,7 @@ body {
 }
 
 .profile-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 30px;
-}
-
-/* Удалить или закомментировать */
-.status-badge {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 20px;
-    background: rgba(0, 255, 255, 0.1);  /* Это голубой фон */
-    border: 1px solid #00ffff;           /* Это голубая рамка */
-    border-radius: 3px;
 }
 
 /* Контакты */
