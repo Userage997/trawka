@@ -1,52 +1,20 @@
-// ГАРАНТИРОВАННО УБИРАЕМ ЛОАДЕР И ПОКАЗЫВАЕМ КОНТЕНТ
-window.addEventListener('load', function() {
-    // Ждем 2 секунды для анимации загрузки
-    setTimeout(function() {
-        const loader = document.getElementById('site-loader');
-        const container = document.querySelector('.terminal-container');
-        
-        // 1. Скрываем лоадер
-        if (loader) {
-            loader.style.opacity = '0';
-            loader.style.transition = 'opacity 0.5s ease';
-            
-            // 2. Через 0.5 сек убираем полностью
-            setTimeout(function() {
-                loader.style.display = 'none';
-                
-                // 3. ПОКАЗЫВАЕМ КОНТЕНТ!
-                if (container) {
-                    container.style.display = 'block';
-                    
-                    // 4. Показываем первый экран
-                    const firstScreen = document.getElementById('screen-1');
-                    if (firstScreen) {
-                        firstScreen.classList.add('active');
-                    }
-                    
-                    // 5. Инициализируем все функции
-                    initEverything();
-                }
-            }, 500); // Ждем завершения fade out
-        } else {
-            // Если лоадера нет, сразу показываем контент
-            if (container) {
-                container.style.display = 'block';
-                document.getElementById('screen-1').classList.add('active');
-                initEverything();
-            }
-        }
-    }, 2000); // Ждем 2 секунды перед началом
-});
-
-// Инициализация всего сайта
-function initEverything() {
+// КОНТЕНТ УЖЕ ВИДЕН СРАЗУ, НИКАКОГО ЛОАДЕРА!
+document.addEventListener('DOMContentLoaded', function() {
+    // Инициализация печатающего эффекта
     initTypingEffect();
+    
+    // Инициализация навигации
     initNavigation();
+    
+    // Инициализация модального окна
     initModal();
+    
+    // Инициализация кнопок услуг
     initServiceDetails();
+    
+    // Инициализация дополнительных обработчиков
     initExtraHandlers();
-}
+});
 
 // Тексты для печатающего эффекта
 const typingTexts = [
@@ -204,19 +172,4 @@ function initExtraHandlers() {
             statusIndicator.style.opacity = statusIndicator.style.opacity === '0.5' ? '1' : '0.5';
         }
     }, 2000);
-}
-
-// Если страница уже загружена (кеш)
-if (document.readyState === 'complete') {
-    setTimeout(function() {
-        const loader = document.getElementById('site-loader');
-        if (loader) loader.style.display = 'none';
-        
-        const container = document.querySelector('.terminal-container');
-        if (container) {
-            container.style.display = 'block';
-            document.getElementById('screen-1').classList.add('active');
-            initEverything();
-        }
-    }, 100);
 }
