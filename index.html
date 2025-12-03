@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RESCUERS — OSINT & Кибербезопасность</title>
+    <title>RESCUERS — OSINT & Социальная инженерия</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,10 +11,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Лоадер -->
+    <div class="site-loader">
+        <div class="loader-text">ИНИЦИАЛИЗАЦИЯ СИСТЕМЫ БЕЗОПАСНОСТИ...</div>
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
+    </div>
+
     <!-- Основной контейнер -->
-    <div class="terminal-container">
+    <div class="terminal-container" style="display: none;">
         <!-- Экран 1: Главный -->
-        <section id="screen-1" class="screen active">
+        <section id="screen-1" class="screen">
             <div class="terminal-header">
                 <div class="prompt">root@rescuer:~$</div>
                 <div class="status">
@@ -29,13 +37,13 @@
                 </h1>
                 
                 <div class="ascii-art">
-                    <pre>
-  _____  ______   _______  __   __  _______  ______    _______ 
- |  __ \|  ____| |__   __| \ \ / / |__   __||  ____|  / _____|
- | |__) | |__       | |     \ V /     | |   | |__    | (___  
- |  _  /|  __|      | |      > <      | |   |  __|    \___ \ 
- | | \ \| |____     | |     / . \     | |   | |____   ____) |
- |_|  \_\______|    |_|    /_/ \_\    |_|   |______| |_____/ 
+                    <pre class="ascii-large">
+ ██████╗ ███████╗███████╗ ██████╗██╗   ██╗███████╗██████╗ ███████╗
+██╔═══██╗██╔════╝██╔════╝██╔════╝██║   ██║██╔════╝██╔══██╗██╔════╝
+██║   ██║███████╗███████╗██║     ██║   ██║█████╗  ██████╔╝███████╗
+██║   ██║╚════██║╚════██║██║     ██║   ██║██╔══╝  ██╔══██╗╚════██║
+╚██████╔╝███████║███████║╚██████╗╚██████╔╝███████╗██║  ██║███████║
+ ╚═════╝ ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝
                     </pre>
                 </div>
                 
@@ -88,163 +96,181 @@
             </div>
         </section>
 
-       <div class="info-container">
-    <div class="info-line">
-        <span class="info-prefix">>_</span>
-        <span class="info-text">Задача: Противодействие киберпреступности через OSINT-разведку</span>
-    </div>
-    
-    <div class="info-line">
-        <span class="info-prefix">>_</span>
-        <span class="info-text">Направления: Цифровая forensics, расследование мошенничеств, реверс инжиниринг</span>
-    </div>
-    
-    <div class="info-line">
-        <span class="info-prefix">>_</span>
-        <span class="info-text">Команда: Профессионалы с опытом в правоохранительных органах и IT-безопасности</span>
-    </div>
-    
-    <div class="info-block">
-        <h3><span class="command-prefix">$</span> Основные цели:</h3>
-        <ul class="cyber-list">
-            <li>Выявление цифровых следов преступной деятельности</li>
-            <li>Анализ социальных сетей и открытых источников</li>
-            <li>Консультации по защите от киберугроз</li>
-            <li>Расследование мошеннических схем</li>
-        </ul>
-    </div>
-    
-    <div class="action-buttons">
-        <button class="cyber-btn secondary" data-action="examples">
-            <span class="btn-number">[i]</span>
-            <span>Примеры работ</span>
-        </button>
-        <button class="cyber-btn secondary" data-action="testimonials">
-            <span class="btn-number">[ii]</span>
-            <span>Отзывы клиентов</span>
-        </button>
-    </div>
-</div>
-        <!-- Экран 3: Специалист -->
-<section id="screen-3" class="screen">
-    <div class="terminal-header">
-        <button class="back-btn" data-target="screen-1">
-            <i class="fas fa-arrow-left"></i> НАЗАД
-        </button>
-        <div class="prompt">root@rescuer:~/expert$</div>
-    </div>
-    
-    <div class="content">
-        <h2 class="screen-title">
-            <span class="command-prefix">></span> СПЕЦИАЛИСТ: USERTRAWKA
-        </h2>
-        
-        <div class="expert-profile">
-            <div class="profile-header">
-                <div class="status-badge">
-                    <span class="status-indicator expert"></span>
-                    <span>OSINT СПЕЦИАЛИСТ И СОЦ ИНЖЕНЕР</span>
-                </div>
+        <!-- Экран 2: О проекте -->
+        <section id="screen-2" class="screen">
+            <div class="terminal-header">
+                <button class="back-btn" data-target="screen-1">
+                    <i class="fas fa-arrow-left"></i> НАЗАД
+                </button>
+                <div class="prompt">root@rescuer:~/about$</div>
             </div>
             
-            <div class="info-container">
-                <div class="info-line">
-                    <span class="info-prefix">>_</span>
-                    <span class="info-text">Статус: Действующий OSINT специалист и профессиональный соц инженер</span>
-                </div>
+            <div class="content">
+                <h2 class="screen-title">
+                    <span class="command-prefix">></span> ПРОЕКТ RESCUERS
+                </h2>
                 
-                <div class="info-block">
-                    <h3><span class="command-prefix">$</span> Специализация:</h3>
-                    <ul class="cyber-list">
-                        <li>Поиск и анализ цифровых следов</li>
-                        <li>Расследование мошенничеств в интернете</li>
-                        <li>Социальная инженерия и реверс-инжиниринг</li>
-                        <li>OSINT-анализ личности и организаций</li>
-                        <li>Обучение цифровой анонимности</li>
-                    </ul>
-                </div>
-                
-                <div class="info-block">
-                    <h3><span class="command-prefix">$</span> Контакты:</h3>
-                    <div class="contact-item">
-                        <span class="contact-icon"><i class="fab fa-telegram"></i></span>
-                        <a href="https://t.me/usertrawka" target="_blank" class="contact-link">@usertrawka</a>
+                <div class="info-container">
+                    <div class="info-line">
+                        <span class="info-prefix">>_</span>
+                        <span class="info-text">Задача: Противодействие киберпреступности через OSINT-разведку</span>
+                    </div>
+                    
+                    <div class="info-line">
+                        <span class="info-prefix">>_</span>
+                        <span class="info-text">Направления: Цифровая forensics, расследование мошенничеств, реверс инжиниринг</span>
+                    </div>
+                    
+                    <div class="info-line">
+                        <span class="info-prefix">>_</span>
+                        <span class="info-text">Команда: Профессионалы с опытом в правоохранительных органах и IT-безопасности</span>
+                    </div>
+                    
+                    <div class="info-block">
+                        <h3><span class="command-prefix">$</span> Основные цели:</h3>
+                        <ul class="cyber-list">
+                            <li>Выявление цифровых следов преступной деятельности</li>
+                            <li>Анализ социальных сетей и открытых источников</li>
+                            <li>Консультации по защите от киберугроз</li>
+                            <li>Расследование мошеннических схем</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="cyber-btn secondary" data-action="examples">
+                            <span class="btn-number">[i]</span>
+                            <span>Примеры работ</span>
+                        </button>
+                        <button class="cyber-btn secondary" data-action="testimonials">
+                            <span class="btn-number">[ii]</span>
+                            <span>Отзывы клиентов</span>
+                        </button>
                     </div>
                 </div>
             </div>
-            
-            <div class="action-buttons">
-                <button class="cyber-btn primary" id="help-btn">
-                    <span class="btn-number">[!]</span>
-                    <span>ЗАПРОСИТЬ ПОМОЩЬ</span>
+        </section>
+
+        <!-- Экран 3: Специалист -->
+        <section id="screen-3" class="screen">
+            <div class="terminal-header">
+                <button class="back-btn" data-target="screen-1">
+                    <i class="fas fa-arrow-left"></i> НАЗАД
                 </button>
-            </div>
-        </div>
-    </div>
-</section>
-       <!-- Экран 4: Услуги и прайс -->
-<section id="screen-4" class="screen">
-    <div class="terminal-header">
-        <button class="back-btn" data-target="screen-1">
-            <i class="fas fa-arrow-left"></i> НАЗАД
-        </button>
-        <div class="prompt">root@rescuer:~/services$</div>
-    </div>
-    
-    <div class="content">
-        <h2 class="screen-title">
-            <span class="command-prefix">></span> УСЛУГИ И СТОИМОСТЬ
-        </h2>
-        
-        <div class="price-warning">
-            <span class="warning-icon"><i class="fas fa-exclamation-triangle"></i></span>
-            <span>Актуальные цены в Telegram: <a href="https://t.me/priceusertrawka" target="_blank">@priceusertrawka</a></span>
-        </div>
-        
-        <div class="services-grid center-grid">
-            <div class="service-card">
-                <div class="service-header">
-                    <h3>БАЗОВЫЙ АНАЛИЗ</h3>
-                    <div class="service-price">$1-3</div>
-                </div>
-                <div class="service-desc">
-                    В зависимости от анонимности жертвы
-                </div>
-                <ul class="service-features">
-                    <li>Проверка цифрового следа</li>
-                    <li>Базовый OSINT-анализ</li>
-                    <li>Отчет в течение 1 часа</li>
-                </ul>
-                <button class="cyber-btn small service-details-btn" data-service="basic">Подробнее</button>
+                <div class="prompt">root@rescuer:~/expert$</div>
             </div>
             
-            <div class="service-card">
-                <div class="service-header">
-                    <h3>ПОЛНОЕ РАССЛЕДОВАНИЕ</h3>
-                    <div class="service-price">$6</div>
+            <div class="content">
+                <h2 class="screen-title">
+                    <span class="command-prefix">></span> СПЕЦИАЛИСТ: USERTRAWKA
+                </h2>
+                
+                <div class="expert-profile">
+                    <div class="profile-header">
+                        <div class="status-badge">
+                            <span class="status-indicator expert"></span>
+                            <span>OSINT СПЕЦИАЛИСТ И СОЦ ИНЖЕНЕР</span>
+                        </div>
+                    </div>
+                    
+                    <div class="info-container">
+                        <div class="info-line">
+                            <span class="info-prefix">>_</span>
+                            <span class="info-text">Статус: Действующий OSINT специалист и профессиональный соц инженер</span>
+                        </div>
+                        
+                        <div class="info-block">
+                            <h3><span class="command-prefix">$</span> Специализация:</h3>
+                            <ul class="cyber-list">
+                                <li>Поиск и анализ цифровых следов</li>
+                                <li>Расследование мошенничеств в интернете</li>
+                                <li>Социальная инженерия и реверс-инжиниринг</li>
+                                <li>OSINT-анализ личности и организаций</li>
+                                <li>Обучение цифровой анонимности</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-block">
+                            <h3><span class="command-prefix">$</span> Контакты:</h3>
+                            <div class="contact-item">
+                                <span class="contact-icon"><i class="fab fa-telegram"></i></span>
+                                <a href="https://t.me/usertrawka" target="_blank" class="contact-link">@usertrawka</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="cyber-btn primary" id="help-btn">
+                            <span class="btn-number">[!]</span>
+                            <span>ЗАПРОСИТЬ ПОМОЩЬ</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="service-desc">
-                    Вне зависимости от анонимности
-                </div>
-                <ul class="service-features">
-                    <li>Глубокий OSINT-анализ</li>
-                    <li>Отчет активности аккаунта</li>
-                    <li>Детальный отчет + рекомендации</li>
-                    <li>Обучение анонимности</li>
-                </ul>
-                <button class="cyber-btn small service-details-btn" data-service="full">Подробнее</button>
             </div>
-        </div>
-        
-        <div class="action-buttons center-buttons">
-            <a href="https://t.me/priceusertrawka" target="_blank" class="cyber-btn primary">
-                <span class="btn-number">[+]</span>
-                <span>УЗНАТЬ БОЛЬШЕ В ТЕЛЕГРАМ</span>
-                <span class="btn-external"><i class="fab fa-telegram"></i></span>
-            </a>
-        </div>
-    </div>
-</section>
+        </section>
+
+        <!-- Экран 4: Услуги и прайс -->
+        <section id="screen-4" class="screen">
+            <div class="terminal-header">
+                <button class="back-btn" data-target="screen-1">
+                    <i class="fas fa-arrow-left"></i> НАЗАД
+                </button>
+                <div class="prompt">root@rescuer:~/services$</div>
+            </div>
+            
+            <div class="content">
+                <h2 class="screen-title">
+                    <span class="command-prefix">></span> УСЛУГИ И СТОИМОСТЬ
+                </h2>
+                
+                <div class="price-warning">
+                    <span class="warning-icon"><i class="fas fa-exclamation-triangle"></i></span>
+                    <span>Актуальные цены в Telegram: <a href="https://t.me/priceusertrawka" target="_blank">@priceusertrawka</a></span>
+                </div>
+                
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-header">
+                            <h3>БАЗОВЫЙ АНАЛИЗ</h3>
+                            <div class="service-price">$1-3</div>
+                        </div>
+                        <div class="service-desc">
+                            В зависимости от анонимности жертвы
+                        </div>
+                        <ul class="service-features">
+                            <li>Проверка цифрового следа</li>
+                            <li>Базовый OSINT-анализ</li>
+                            <li>Отчет в течение 1 часа</li>
+                        </ul>
+                        <button class="cyber-btn small service-details-btn" data-service="basic">Подробнее</button>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-header">
+                            <h3>ПОЛНОЕ РАССЛЕДОВАНИЕ</h3>
+                            <div class="service-price">$6</div>
+                        </div>
+                        <div class="service-desc">
+                            Вне зависимости от анонимности
+                        </div>
+                        <ul class="service-features">
+                            <li>Глубокий OSINT-анализ</li>
+                            <li>Отчет активности аккаунта</li>
+                            <li>Детальный отчет + рекомендации</li>
+                            <li>Обучение анонимности</li>
+                        </ul>
+                        <button class="cyber-btn small service-details-btn" data-service="full">Подробнее</button>
+                    </div>
+                </div>
+                
+                <div class="action-buttons center-buttons">
+                    <a href="https://t.me/priceusertrawka" target="_blank" class="cyber-btn primary">
+                        <span class="btn-number">[+]</span>
+                        <span>УЗНАТЬ БОЛЬШЕ В ТЕЛЕГРАМ</span>
+                        <span class="btn-external"><i class="fab fa-telegram"></i></span>
+                    </a>
+                </div>
+            </div>
+        </section>
 
         <!-- Экран 5: Контакты и безопасность -->
         <section id="screen-5" class="screen">
@@ -301,15 +327,15 @@
         </section>
     </div>
 
-    <!-- Модальное окно для консультации -->
+    <!-- Модальное окно для помощи -->
     <div id="consultation-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>ЗАПРОС КОНСУЛЬТАЦИИ</h3>
+                <h3>ЗАПРОС ПОМОЩИ</h3>
                 <button class="modal-close">&times;</button>
             </div>
             <div class="modal-body">
-                <p>Для записи на консультацию свяжитесь напрямую в Telegram:</p>
+                <p>Для запроса помощи свяжитесь напрямую в Telegram:</p>
                 <a href="https://t.me/usertrawka" target="_blank" class="telegram-link">
                     <i class="fab fa-telegram"></i> @usertrawka
                 </a>
