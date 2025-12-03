@@ -1,25 +1,42 @@
-// Простое решение: скрыть лоадер через 2 секунды
-setTimeout(function() {
-    const loader = document.querySelector('.site-loader');
+// Простая и надежная функция удаления лоадера
+function hideLoader() {
+    const loader = document.getElementById('site-loader');
     if (loader) {
-        loader.style.display = 'none';
+        loader.style.opacity = '0';
+        loader.style.transition = 'opacity 0.5s ease';
+        
+        // Через 0.5 секунды (после анимации) скрываем полностью
+        setTimeout(function() {
+            loader.style.display = 'none';
+            
+            // Показываем первый экран
+            document.getElementById('screen-1').classList.add('active');
+            
+            // Инициализируем все функции
+            initTypingEffect();
+            initNavigation();
+            initModal();
+            initServiceDetails();
+            initExtraHandlers();
+        }, 500);
+    } else {
+        // Если лоадера нет, сразу инициализируем
+        initSite();
     }
-    
-    // Показать первый экран
+}
+
+// Убираем лоадер через 2 секунды
+setTimeout(hideLoader, 2000);
+
+// Функция инициализации сайта (если лоадера нет)
+function initSite() {
     document.getElementById('screen-1').classList.add('active');
-    
-    // Инициализировать печатающий эффект
     initTypingEffect();
-    
-    // Инициализировать навигацию
     initNavigation();
-    
-    // Инициализировать модальное окно
     initModal();
-    
-    // Инициализировать кнопки услуг
     initServiceDetails();
-}, 2000);
+    initExtraHandlers();
+}
 
 // Тексты для печатающего эффекта
 const typingTexts = [
@@ -161,7 +178,7 @@ function initServiceDetails() {
 }
 
 // Дополнительные обработчики
-document.addEventListener('DOMContentLoaded', function() {
+function initExtraHandlers() {
     document.querySelectorAll('[data-action="examples"]').forEach(btn => {
         btn.addEventListener('click', () => alert('Примеры работ доступны в Telegram-канале: @rescuersrescuersrescuers'));
     });
@@ -177,4 +194,16 @@ document.addEventListener('DOMContentLoaded', function() {
             statusIndicator.style.opacity = statusIndicator.style.opacity === '0.5' ? '1' : '0.5';
         }
     }, 2000);
+}
+
+// Инициализация при полной загрузке страницы
+window.addEventListener('load', function() {
+    // Если лоадер все еще виден через 3 секунды - принудительно скрываем
+    setTimeout(function() {
+        const loader = document.getElementById('site-loader');
+        if (loader && loader.style.display !== 'none') {
+            loader.style.display = 'none';
+            initSite();
+        }
+    }, 3000);
 });
